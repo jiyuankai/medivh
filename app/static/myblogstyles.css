@@ -11,7 +11,7 @@ h2, .h2,
 h3, .h3,
 h4, .h4,
 h5, .h5,
-h6, .h6 {
+h6, .h6, .p{
   margin-top: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -72,7 +72,7 @@ h6, .h6 {
 }
 .blog-post-title {
   margin-bottom: 5px;
-  font-size: 40px;
+  font-size: 30px;
 }
 .blog-post-meta {
   margin-bottom: 20px;
@@ -96,7 +96,26 @@ h6, .h6 {
   text-align: center;
   background-color: #f9f9f9;
   border-top: 1px solid #e5e5e5;
+  margin:20px;
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+
+div.pagination {
+    width: 100%;
+    text-align: right
+    padding: 0px;
+    margin: 0px;
+}
+
+.blog-post-meta a {text-decoration:none;}
+.blog-post-title a {text-decoration:none;}
+
+.blog-post-title :link{color:black}
+.blog-post-title :visited{color: black; }
+.blog-post-title :hover{color:black; ;text-decoration:none;}
+.blog-post-title :active{color:black;}
+
+.list-unstyled a {text-decoration:none;}

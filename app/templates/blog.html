@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}MyBlog - {{ blog.name }}{% endblock %}
+
+{% block about %}{% if blog.id == 0 %}"active"{% endif %}{% endblock %}
+
+{% block page_content %}
+<div class="blog-post">
+	
+	<h2 class="blog-post-title">{{ blog.name }}</h2>
+	{% if blog.id != 0 %}
+	<p class="lead blog-description">{{ moment(blog.create_at).format('LLL') }} by <a href=#>{{ blog.author.username }}</a></p>
+	<p>
+		{% if blog.summary_html %}
+			{{ blog.summary_html | safe }}
+		{% else %}
+			{{ blog.summary  }}
+		{% endif %}		
+	</p>
+	<hr>
+	{% endif %}
+	<p>
+		{% if blog.content_html %}
+			{{ blog.content_html | safe }}
+		{% else %}
+			{{ blog.content  }}
+		{% endif %}			
+	</p>
+</div>
+{% endblock %}

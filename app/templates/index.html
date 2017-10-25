@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}MyBlog{% endblock %}
+
+{% block index %}"active"{% endblock %}
+
+{% block page_content %}
+			<div class="row">
+				<div class="col-sm-8 blog-main">
+					{% for blog in blogs%}
+					<div class="blog-post">
+						<h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
+						<p class="blog-post-meta">{{ moment(blog.create_at).format('LLL') }} by <a href=#>{{ blog.author.username }}</a></p>
+						<p>
+							{% if blog.summary_html %}
+								{{ blog.summary_html | safe }}
+							{% else %}
+								{{ blog.summary  }}
+							{% endif %}
+						</p>
+						<hr>
+					</div>
+					{% endfor %}	
+				</div>
+				<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+					<div class="sidebar-module sidebar-module-inset">
+						<h4>About</h4>
+						<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+					</div>
+					<div class="sidebar-module">
+						<h4>Archives</h4>
+						<ol class="list-unstyled">
+							<li><a href="#">March 2014</a></li>
+							<li><a href="#">February 2014</a></li>
+							<li><a href="#">January 2014</a></li>
+						</ol>
+					</div>
+					<div class="sidebar-module">
+						<h4>Elsewhere</h4>
+						<ol class="list-unstyled">
+							<li><a href="#">GitHub</a></li>
+							<li><a href="#">Twitter</a></li>
+							<li><a href="#">Facebook</a></li>
+						</ol>
+					</div>
+				</div><!-- /.blog-sidebar -->
+			</div><!-- /.row -->
+{% if pagination %}
+<div class="pagination">
+	{{ macros.pagination_widget(pagination, 'main.index') }}
+</div>
+{% endif %}
+{% endblock %}
