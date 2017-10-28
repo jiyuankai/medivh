@@ -7,12 +7,12 @@
 
 {% block page_content %}
 			<div class="row">
-				<div class="col-sm-8 blog-main">
+				<div class="col-md-8 blog-main">
 					{% for blog in blogs%}
 					<div class="blog-post">
 						<h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
-						<p class="blog-post-meta">{{ moment(blog.create_at).format('LLL') }} by <a href=#>{{ blog.author.username }}</a></p>
-						<p>
+						<p class="blog-post-meta">{{ moment(blog.create_at).format('LL hh:mm:ss') }}</p>
+						<p >
 							{% if blog.summary_html %}
 								{{ blog.summary_html | safe }}
 							{% else %}
@@ -47,8 +47,10 @@
 				</div><!-- /.blog-sidebar -->
 			</div><!-- /.row -->
 {% if pagination %}
-<div class="pagination">
-	{{ macros.pagination_widget(pagination, 'main.index') }}
+<div class="col-md-8 pagination-index">
+	<div class="pagination-Nav">
+		{{ macros.pagination_widget(pagination, 'main.index') }}
+	</div>
 </div>
 {% endif %}
 {% endblock %}

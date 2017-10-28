@@ -6,7 +6,7 @@
 {{ super() }}
 <link rel="shortcut icon" href="#" type="image/x-icon">
 <link rel="icon" href="#" type="image/x-icon">
-<link href="{{ url_for('static', filename='myblogstyles.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ url_for('static', filename='styles25.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block navbar %}
@@ -37,9 +37,9 @@
 							<ul class="dropdown-menu">
 								{% if current_user.is_administrator() %}
 								<li><a href="{{ url_for('manage.create_blog') }}">创建日志</a></li>	
-								<li><a href="#">博客管理</a></li>
+								<li><a href="{{ url_for('manage.manage_blogs') }}">博客管理</a></li>
 								{% endif %}
-								<li><a href="#">个人设置</a></li>	
+								<li><a href="{{ url_for('manage.change_password') }}">修改密码</a></li>	
 								<li role="separator" class="divider"></li>												
 								<li><a href="{{ url_for('auth.logout') }}">注销用户</a></li>
 							</ul>
@@ -63,13 +63,14 @@
 	{% endfor %}
 	{% block page_content %}{% endblock %}
 </div>
-
-<footer class="blog-footer">
-	<p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-	<p>
-		<a href="#">Back to top</a>
-	</p>
-</footer>
+<div class="blog-footer">
+	<footer class="footer">
+		<p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+		<p>
+			<a href="#">Back to top</a>
+		</p>
+	</footer>
+</div class="blog-footer">
 {% endblock %}
 
 
@@ -77,4 +78,5 @@
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
+{{ moment.lang("zh-CN") }} 
 {% endblock %}

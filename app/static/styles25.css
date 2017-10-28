@@ -6,17 +6,23 @@ body {
  * Globals
  */
 
+
 h1, .h1,
 h2, .h2,
 h3, .h3,
 h4, .h4,
 h5, .h5,
-h6, .h6, .p{
+h6, .h6 {
   margin-top: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   color: #333;
 }
+
+p {
+  font-size: 16px;
+}
+
 
 
 /*
@@ -68,47 +74,58 @@ h6, .h6, .p{
  */
 
 .blog-post {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 .blog-post-title {
   margin-bottom: 5px;
-  font-size: 30px;
+  font-size: 26px;
 }
 .blog-post-meta {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: #999;
+  font-size: 14px;
 }
 
 /*
  * Pagination Nav
  */
 .pagination {
-  margin:0 auto
+display:inline-block;
 }
 
+.pagination-index {
+ text-align: center;
+}
+
+.pagination-manage{
+  text-align: center;
+  margin-top:15px;
+  margin-bottom:-20px;
+}
 /*
  * Footer
  */
 
 .blog-footer {
-  padding: 40px 0;
+  margin-top:20px;
+  padding: 40px;
   color: #999;
   text-align: center;
   background-color: #f9f9f9;
   border-top: 1px solid #e5e5e5;
-  margin:20px;
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+  
 }
 
-
-div.pagination {
-    width: 100%;
-    text-align: right
-    padding: 0px;
-    margin: 0px;
+.blog-footer p { 
+  font-size: 14px;
 }
+
+/*
+ * href
+ */
 
 .blog-post-meta a {text-decoration:none;}
 .blog-post-title a {text-decoration:none;}
@@ -119,3 +136,62 @@ div.pagination {
 .blog-post-title :active{color:black;}
 
 .list-unstyled a {text-decoration:none;}
+
+/*
+ * Sidebar navigation
+ */ 
+
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+  background-color: #f5f5f5;
+  margin-top:35px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.sidebar {
+    top: 51px;
+    margin-top:-80px;
+    padding-right:20px;
+    margin-right:20px;
+    text-align:right;
+
+  }
+
+.table-responsive {
+    padding-top:0px;
+    padding-right:50px;
+    padding-left:30px;
+    text-align:left;
+    margin-bottom:30px;
+}
+
+.page-header {
+    margin-top:10px;
+    margin-left: 20px;
+    margin-right: 30px;
+    text-align:left;
+    border-bottom: 1px solid #eee;
+}
+
+.main {
+    top: 51px;
+    margin-top:-80px;
+    padding-right:20px;
+    margin-right:20px;
+    text-align:center;
+}
+
+
+
