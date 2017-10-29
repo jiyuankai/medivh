@@ -20,8 +20,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>用户</th>
-                                <th>内容</th>
+                                <th class="th-left">用户</th>
+                                <th class="th-left">内容</th>
                                 <th>发表日期</th>
                                 <th>操作</th>
                             </tr>
@@ -29,12 +29,15 @@
                         <tbody>
                             {% for comment in comments %}
                             <tr>
-                                <td>{{ comment.author.username }}</td>
-                                <td>{{ comment.content[:40] }}</td>
+                                <td class="th-left">{{ comment.author.username }}</td>
+                                <td class="th-left">{% if comment.disabled %}<b>[封禁]</b>{% endif %}{{ comment.content[:40] }}</td>
                                 <td>{{ moment(comment.create_at).format('YYYY-MM-DD hh:mm:ss') }}</td>
-                                <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                <td>
+                                    {% if not comment.disabled %}
+                                    <a href="{{ url_for('manage.disable_comment', id=comment.id, page=page) }}"><span class="glyphicon glyphicon-remove" aria-hidden="true">-屏蔽</span></a>
+                                    {% else %}
+                                    <a href="{{ url_for('manage.enable_comment', id=comment.id, page=page) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true">-恢复</span></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}

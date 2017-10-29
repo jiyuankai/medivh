@@ -20,8 +20,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>用户名</th>
-                                <th>电子邮箱</th>
+                                <th class="th-left">用户名</th>
+                                <th class="th-left">电子邮箱</th>
                                 <th>注册日期</th>
                                 <th>操作</th>
                             </tr>
@@ -29,12 +29,15 @@
                         <tbody>
                             {% for user in users %}
                             <tr>
-                                <td>{{ user.username }}</td>
-                                <td>{{ user.email }}</td>
+                                <td class="th-left">{% if user.disabled %}<b>[封禁]</b>{% endif %}{{ user.username }}</td>
+                                <td class="th-left">{{ user.email }}</td>
                                 <td>{{ moment(user.create_at).format('YYYY-MM-DD hh:mm:ss') }}</td>
-                                <td><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                                <td>
+                                    {% if not user.disabled %}
+                                    <a href="{{ url_for('manage.disable_user', id=user.id, page=page) }}"><span class="glyphicon glyphicon-remove" aria-hidden="true">-封禁</span></a>
+                                    {% else %}
+                                    <a href="{{ url_for('manage.enable_user', id=user.id, page=page) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true">-解禁</span></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}

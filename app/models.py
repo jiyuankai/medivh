@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     admin = db.Column(db.Boolean, default=False)
     avatar_hash = db.Column(db.String(64))
+    disabled = db.Column(db.Boolean, default=False)
     create_at = db.Column(db.DateTime, default=datetime.utcnow)
     blogs = db.relationship('Blog', backref='author', lazy= 'dynamic')
     comments = db.relationship('Comment', backref='author', lazy= 'dynamic')

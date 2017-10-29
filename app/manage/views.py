@@ -32,7 +32,7 @@ def manage_blogs():
         page, per_page=10, error_out=False)
     blogs = pagination.items
     return render_template('manage/manage_blogs.html', blogs=blogs, 
-                            pagination=pagination)
+                            pagination=pagination, page=page)
 
 # 写文章
 @manage.route('/create-blog', methods = ['GET', 'POST'])
@@ -77,7 +77,8 @@ def delete_blog(id):
     db.session.delete(blog)
     db.session.commit()
     flash('文章已删除')
-    return redirect(url_for('manage.manage_blogs'))
+    return redirect(url_for('manage.manage_blogs',
+                            page=request.args.get('page', 1, type=int)))
 
 # 评论管理
 @manage.route('/comments')
@@ -89,11 +90,32 @@ def manage_comments():
         page, per_page=10, error_out=False)
     comments = pagination.items
     return render_template('manage/manage_comments.html', comments=comments, 
-                            pagination=pagination)
+                            pagination=pagination, page=page)
 
+# 恢复评论
+@manage.route('/comment/enable/<int:id>')
+@admin_required
+@login_required
+def enable_comment(id):
+    comment = Comment.query.get_or_404(id)
+    comment.disabled = False
+    db.session.add(comment)
+    db.session.commit()
+    flash('已恢复该评论')
+    return redirect(url_for('manage.manage_comments', 
+                            page=request.args.get('page', 1, type=int)))
 # 屏蔽评论
-
-
+@manage.route('/comment/disable/<int:id>')
+@admin_required
+@login_required
+def disable_comment(id):
+    comment = Comment.query.get_or_404(id)
+    comment.disabled = True
+    db.session.add(comment)
+    db.session.commit()
+    flash('已屏蔽该评论')
+    return redirect(url_for('manage.manage_comments', 
+                            page=request.args.get('page', 1, type=int)))
 
 # 用户管理
 @manage.route('/users')
@@ -105,4 +127,32 @@ def manage_users():
         page, per_page=10, error_out=False)
     users = pagination.items
     return render_template('manage/manage_users.html', users=users, 
-                            pagination=pagination)
+                            pagination=pagination, page=page)
+
+
+# 封禁用户
+@manage.route('/user/disable/<int:id>')
+@admin_required
+@login_required
+def disable_user(id):
+    user = User.query.get_or_404(id)
+    user.disabled = True
+    db.session.add(user)
+    db.session.commit()
+    flash('用户已封禁')
+    return redirect(url_for('manage.manage_users',
+                            page=request.args.get('page', 1, type=int)))
+
+# 解禁用户
+@manage.route('/user/enable/<int:id>')
+@admin_required
+@login_required
+def enable_user(id):
+    user = User.query.get_or_404(id)
+    user.disabled = False
+    db.session.add(user)
+    db.session.commit()
+    flash('用户已解禁')
+    return redirect(url_for('manage.manage_users',
+                            page=request.args.get('page', 1, type=int)))
+

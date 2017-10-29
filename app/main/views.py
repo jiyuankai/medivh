@@ -1,7 +1,9 @@
-from flask_login import login_required
-from flask import url_for, render_template, current_app, redirect, request
+from flask_login import login_required, current_user
+from flask import url_for, render_template, current_app, redirect, request, flash
 from . import main
-from ..models import Blog
+from .. import db
+from ..models import Blog, Comment
+from .forms import CreateCommentForm
 
 @main.route('/')
 def index():
@@ -12,7 +14,21 @@ def index():
     blogs = pagination.items
     return render_template('index.html', blogs=blogs, pagination=pagination)
 
-@main.route('/blog/<int:id>')
+@main.route('/blog/<int:id>', methods=['GET', 'POST'])
 def blog(id):
-	blog = Blog.query.get_or_404(id)
-	return render_template('blog.html', blog=blog)
+    blog = Blog.query.get_or_404(id)
+    form = CreateCommentForm()
+    if form.validate_on_submit():
+        comment = Comment(
+            content = form.content.data,
+            blog = blog,
+            author = current_user._get_current_object())
+        db.session.add(comment)
+        db.session.commit()
+        flash('评论已提交')
+        return redirect(url_for('main.blog', id=blog.id))
+    page = request.args.get('page', 1, type=int)
+    pagination = blog.comments.order_by(Comment.create_at.desc()).paginate(
+        page, per_page=8, error_out=False)
+    comments = pagination.items
+    return render_template('blog.html', blog=blog, comments=comments, pagination=pagination, form=form)
