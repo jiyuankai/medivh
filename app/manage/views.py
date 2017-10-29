@@ -102,6 +102,9 @@ def enable_comment(id):
     db.session.add(comment)
     db.session.commit()
     flash('已恢复该评论')
+    if request.args.get('info', '') == 'blog':
+        return redirect(url_for('main.blog', id=comment.blog.id, 
+                                page=request.args.get('page', 1, type=int)))
     return redirect(url_for('manage.manage_comments', 
                             page=request.args.get('page', 1, type=int)))
 # 屏蔽评论
@@ -114,6 +117,9 @@ def disable_comment(id):
     db.session.add(comment)
     db.session.commit()
     flash('已屏蔽该评论')
+    if request.args.get('info', '') == 'blog':
+        return redirect(url_for('main.blog', id=comment.blog.id, 
+                                page=request.args.get('page', 1, type=int)))
     return redirect(url_for('manage.manage_comments', 
                             page=request.args.get('page', 1, type=int)))
 

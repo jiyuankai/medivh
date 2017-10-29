@@ -13,6 +13,13 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('记住我')
     submit = SubmitField('确认登录')
 
+    def validate_email(SELF, field):
+        user = User.query.filter_by(email=field.data).first()
+        if user is not None:
+            if user.disabled:
+                raise ValidationError('该用户已被封禁，请联系管理员')
+
+
 # 注册表单
 class RegistrationForm(FlaskForm):
     email = StringField('电子邮箱', validators=[Required(), Length(1, 64), 
@@ -30,6 +37,8 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('该名称已被使用')
+
+
 
 
 

@@ -31,4 +31,5 @@ def blog(id):
     pagination = blog.comments.order_by(Comment.create_at.desc()).paginate(
         page, per_page=8, error_out=False)
     comments = pagination.items
-    return render_template('blog.html', blog=blog, comments=comments, pagination=pagination, form=form)
+    return render_template('blog.html', blog=blog, comments=comments, 
+                            pagination=pagination, form=form, page=page)

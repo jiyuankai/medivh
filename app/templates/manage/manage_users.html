@@ -28,6 +28,7 @@
                         </thead>
                         <tbody>
                             {% for user in users %}
+                            {% if not user.admin %}
                             <tr>
                                 <td class="th-left">{% if user.disabled %}<b>[封禁]</b>{% endif %}{{ user.username }}</td>
                                 <td class="th-left">{{ user.email }}</td>
@@ -40,6 +41,7 @@
                                     {% endif %}
                                 </td>
                             </tr>
+                            {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>

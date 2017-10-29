@@ -54,7 +54,7 @@
 {% if pagination and comments %}
 <div class="col-md-7 pagination-comment">
     <div class="pagination-Nav">
-        {{ macros.pagination_widget(pagination, 'main.blog', id=blog.id) }}
+        {{ macros.pagination_widget(pagination, 'main.blog', fragment='#comments', id=blog.id) }}
     </div>
 </div>
 {% endif %}
