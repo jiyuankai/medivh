@@ -29,12 +29,9 @@ def deploy():
     from flask_migrate import upgrade
     
     upgrade()
+    Blog.create_about_blog()
 
-    if not Blog.query.filter_by(id=0).first():
-        u = User.query.filter_by(id=1).first()
-        b = Blog(id=998, name='关于本站', summary='', content='', author=u)
-        db.session.add(b)
-        db.session.commit()
+
 
 if __name__ == '__main__':
     manager.run()

@@ -96,6 +96,14 @@ class Blog(db.Model):
     comments = db.relationship('Comment', backref='blog', lazy= 'dynamic')
 
     @staticmethod
+    def create_about_blog():
+        if Blog.query.filter_by(id=998).first() is None:
+            u = User.query.filter_by(id=1).first()
+            b = Blog(id=998, name='关于本站', summary='', content='', author=u)
+            db.session.add(b)
+            db.session.commit()
+
+    @staticmethod
     def on_changed_summary(target, value, oldvalue, initiator):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
