@@ -9,6 +9,7 @@
             <div class="row">
                 <div class="col-md-8 blog-main">
                     {% for blog in blogs%}
+                    {% if blog.id != 0 %}
                     <div class="blog-post">
                         <h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
                         <p class="blog-post-meta">
@@ -25,6 +26,7 @@
                         </p>
                         <hr>
                     </div>
+                    {% endif %}
                     {% endfor %}    
                 </div>
                 <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
