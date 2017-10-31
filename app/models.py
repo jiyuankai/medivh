@@ -25,6 +25,10 @@ class User(UserMixin, db.Model):
         super(User, self).__init__(**kw)
         if self.email is not None and self.avatar_hash is None:
             self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        if self.email == 'jiyuankai920902@126.com':
+        	self.admin = True
+        	db.session.add(self)
+        	db.session.commit()
 
     @property
     def password(self):
@@ -118,7 +122,7 @@ class Blog(db.Model):
         seed()
         for i in range(count):
             try:
-                b = Blog(name = forgery_py.lorem_ipsum.sentences(1),
+                b = Blog(name = forgery_py.lorem_ipsum.title(1),
                          summary = forgery_py.lorem_ipsum.sentences(randint(3,5)),
                          content = forgery_py.lorem_ipsum.sentences(randint(8,10)),
                          create_at = forgery_py.date.date(True),

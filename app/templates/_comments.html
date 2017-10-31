@@ -24,9 +24,9 @@
                     <br>
                     {% if current_user.admin %}
                         {% if comment.disabled %}
-                        <a class="btn btn-default btn-xs" href="{{ url_for('manage.enable_comment', id=comment.id, page=page, info='blog') }}">恢复</a>
+                        <a class="btn btn-default btn-xs" href="{{ url_for('manage.enable_comment', id=comment.id, page=page, info='blog') }}#comments">恢复</a>
                         {% else %}
-                        <a class="btn btn-danger btn-xs" href="{{ url_for('manage.disable_comment', id=comment.id, page=page, info='blog') }}">屏蔽</a>
+                        <a class="btn btn-danger btn-xs" href="{{ url_for('manage.disable_comment', id=comment.id, page=page, info='blog') }}#comments">屏蔽</a>
                         {% endif %}
                     {% endif %}
             </div>

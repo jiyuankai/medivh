@@ -4,13 +4,13 @@
 
 {% block title %}MyBlog - {{ blog.name }}{% endblock %}
 
-{% block about %}{% if blog.id == 0 %}"active"{% endif %}{% endblock %}
+{% block about %}{% if blog.id == 998 %}"active"{% endif %}{% endblock %}
 
 {% block page_content %}
 
 <div class="col-md-8 blog-post">    
     <h2 class="blog-post-title">{{ blog.name }}</h2>
-    {% if blog.id != 0 %}
+    {% if blog.id != 998 %}
     <p class="lead blog-description">{{ moment(blog.create_at).format('LL hh:mm:ss') }}&nbsp;
         <a href="#comments">评论({{ blog.comments.count() }})</a> &nbsp;
         {% if current_user.is_administrator() %}<a href="{{ url_for('manage.edit_blog', id=blog.id) }}">编辑</a>{% endif %}
@@ -32,31 +32,32 @@
         {% endif %}         
     </p>
 </div>
-<h3 class="col-md-8" id="comments"><hr><b>『评论』</b></h3>
+{% if blog.id != 998 %}
+    <h3 class="col-md-8" id="comments"><hr><b>『评论』</b></h3>
 
-{% if current_user.is_authenticated %}
-<div class="col-md-7 comment-form">
-    <form method='POST' role="form">
-            {{ form.hidden_tag() }}
-            {{ form.content.label }} {{ form.content(class="form-control", rows="3") }}
-            <br>
-            {{ form.submit(class="btn btn-default") }}
-    </form>
-</div>
-{% else %}
-<div class="col-md-7 nocomment">
-    <span><h4><hr>想评论此文章？请先<a href="{{ url_for('auth.login') }}">登录</a>～</h4></span>
-</div>
-{% endif %}
-
-{% include "_comments.html" %}
-
-{% if pagination and comments %}
-<div class="col-md-7 pagination-comment">
-    <div class="pagination-Nav">
-        {{ macros.pagination_widget(pagination, 'main.blog', fragment='#comments', id=blog.id) }}
+    {% if current_user.is_authenticated %}
+    <div class="col-md-7 comment-form">
+        <form method='POST' role="form">
+                {{ form.hidden_tag() }}
+                {{ form.content.label }} {{ form.content(class="form-control", rows="3") }}
+                <br>
+                {{ form.submit(class="btn btn-default") }}
+        </form>
     </div>
-</div>
-{% endif %}
+    {% else %}
+    <div class="col-md-7 nocomment">
+        <span><h4><hr>想评论此文章？请先<a href="{{ url_for('auth.login') }}">登录</a>～</h4></span>
+    </div>
+    {% endif %}
 
+    {% include "_comments.html" %}
+
+    {% if pagination and comments %}
+    <div class="col-md-7 pagination-comment">
+        <div class="pagination-Nav">
+            {{ macros.pagination_widget(pagination, 'main.blog', fragment='#comments', id=blog.id) }}
+        </div>
+    </div>
+    {% endif %}
+{% endif %}   
 {% endblock %}

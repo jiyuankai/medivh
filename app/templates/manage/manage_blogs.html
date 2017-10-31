@@ -28,6 +28,7 @@
                         </thead>
                         <tbody>
                             {% for blog in blogs %}
+                            {% if blog.id != 998 %}
                             <tr>
                                 <td class="th-left"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name[:30] }}</a></td>
                                 <td>{{ moment(blog.create_at).format('YYYY-MM-DD hh:mm:ss') }}</td>
@@ -38,6 +39,7 @@
                                     <a href="{{ url_for('manage.delete_blog', id=blog.id, page=page) }}"><span class="glyphicon glyphicon-trash" aria-hidden="true">-删除</span></a>
                                 </td>
                             </tr>
+                            {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>

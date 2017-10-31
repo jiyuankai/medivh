@@ -17,13 +17,24 @@ manager.add_command("db", MigrateCommand)
 # 自定义命令，以函数名
 @manager.command
 def test():
-	# 启动单元测试
-	import unittest
-	# 传入path寻找测试文件文件夹
-	tests = unittest.TestLoader().discover('tests')
-	# 读取测试文件并运行测试
-	unittest.TextTestRunner(verbosity=2).run(tests)
+    # 启动单元测试
+    import unittest
+    # 传入path寻找测试文件文件夹
+    tests = unittest.TestLoader().discover('tests')
+    # 读取测试文件并运行测试
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
+@manager.command
+def deploy():
+    from flask_migrate import upgrade
+    
+    upgrade()
+
+    if not Blog.query.filter_by(id=0).first():
+        u = User.query.filter_by(id=1).first()
+        b = Blog(id=998, name='关于本站', summary='', content='', author=u)
+        db.session.add(b)
+        db.session.commit()
 
 if __name__ == '__main__':
-	manager.run()
+    manager.run()

@@ -29,7 +29,7 @@ def blog(id):
         return redirect(url_for('main.blog', id=blog.id))
     page = request.args.get('page', 1, type=int)
     pagination = blog.comments.order_by(Comment.create_at.desc()).paginate(
-        page, per_page=8, error_out=False)
+        page, per_page=6, error_out=False)
     comments = pagination.items
     return render_template('blog.html', blog=blog, comments=comments, 
                             pagination=pagination, form=form, page=page)
