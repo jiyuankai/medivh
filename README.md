@@ -1,6 +1,6 @@
 # myblog
-本项目后端使用**Python3**编写，基于**Flask**框架，并以**Jinja2**作为模板引擎。使用**MySQL**数据库。前端部分使用的是**bootstrap** CSS框架。  
-项目部署在阿里云，服务器操作系统为**Ubuntu 16.04**，使用**Gunicorn**处理动态请求，搭配**gevent**库实现异步响应。前端反向代理服务器使用**Nginx**。监测使用**Supervisor**来守护进程。  
+本项目后端使用**Python3**编写，基于**Flask**框架，并以**Jinja2**作为模板引擎。使用**MySQL**数据库。前端部分使用的是**bootstrap** CSS框架。  
+项目部署在阿里云，服务器操作系统为**Ubuntu 16.04**，使用**Gunicorn**处理动态请求，搭配**gevent**库实现异步响应。前端反向代理服务器使用**Nginx**。监测使用**Supervisor**来守护进程。    
 本站源码托管在[GitHub](https://github.com/jiyuankai/myblog)，开发相关日志可以在[CSDN博客](http://blog.csdn.net/jyk920902)中查看。   
 # 项目结构
 |-myblog  
@@ -17,8 +17,17 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-errors.py HTTP错误  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-manage/ manage蓝图文件夹  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-auth/  auth蓝图文件夹  
-# 页面  
-**用户浏览页面：**    
+# 入口  
+**后端API**  
+/comment/disable/<int:id> 屏蔽评论  
+/comment/enable/<int:id>  恢复评论  
+/user/disable/<int:id>    封禁用户  
+/user/enable/<int:id>     解禁用户  
+/delete-blog/<int:id>     删除文章  
+/manage/create-blog 写文章页面  
+/blog/<id>  写评论  
+
+**用户浏览页面：**  
 /index 主页  
 /blog/<id> 文章详情页  
 /blog/<id>#comments 文章评论列表  
@@ -28,7 +37,6 @@
 /manage/blogs 文章管理页面  
 /manage/users 用户管理页面  
 /manage/comments 评论管理页面  
-/manage/create-blog 写文章页面  
 /manage/edit-blog/<id>  编辑文章页面  
 
 **验证页面：**  
