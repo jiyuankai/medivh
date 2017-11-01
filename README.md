@@ -17,18 +17,24 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-errors.py HTTP错误  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-manage/ manage蓝图文件夹  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-auth/  auth蓝图文件夹  
-# 入口  
-用户浏览页面：
-/index 主页  
-/blog/<id> 文章详情页  
-/blog/<id>#comments 文章评论列表  
-后台管理页面：  
+# 页面  
+**用户浏览页面：**    
+/index 主页  
+/blog/<id> 文章详情页  
+/blog/<id>#comments 文章评论列表  
+
+**后台管理页面：**  
 /manage/change-password 密码修改页面  
-/manage/blogs 文章管理页面  
+/manage/blogs 文章管理页面  
 /manage/users 用户管理页面  
-/manage/comments 评论管理页面  
-/manage/create-blog 写文章页面  
+/manage/comments 评论管理页面  
+/manage/create-blog 写文章页面  
 /manage/edit-blog/<id>  编辑文章页面  
+
+**验证页面：**  
+/auth/login 登录  
+/auth/register 注册  
+/auth/logout  登出
 
 # 开发日志
 
