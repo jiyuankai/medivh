@@ -19,25 +19,25 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-auth/  auth蓝图文件夹  
 # 入口  
 **后端API**  
-/comment/disable/<int:id> 屏蔽评论  
-/comment/enable/<int:id>  恢复评论  
-/user/disable/<int:id>    封禁用户  
-/user/enable/<int:id>     解禁用户  
-/delete-blog/<int:id>     删除文章  
+/comment/disable/\<int:id\> 屏蔽评论  
+/comment/enable/\<int:id\>  恢复评论  
+/user/disable/\<int:id\>    封禁用户  
+/user/enable/\<int:id\>     解禁用户  
+/delete-blog/\<int:id\>     删除文章  
 /manage/create-blog 写文章页面  
-/blog/<id>  写评论  
+/blog/\<int:id\>  写评论  
 
 **用户浏览页面：**  
 /index 主页  
-/blog/<id> 文章详情页  
-/blog/<id>#comments 文章评论列表  
+/blog/\<id\> 文章详情页  
+/blog/\<id\>#comments 文章评论列表  
 
 **后台管理页面：**  
 /manage/change-password 密码修改页面  
 /manage/blogs 文章管理页面  
 /manage/users 用户管理页面  
 /manage/comments 评论管理页面  
-/manage/edit-blog/<id>  编辑文章页面  
+/manage/edit-blog/\<id\>  编辑文章页面  
 
 **验证页面：**  
 /auth/login 登录  
