@@ -1,7 +1,7 @@
 # myblog
 本项目后端使用**Python3**编写，基于**Flask**框架，并以**Jinja2**作为模板引擎。使用**MySQL**数据库。前端部分使用的是**bootstrap** CSS框架。  
 项目部署在阿里云，服务器操作系统为**Ubuntu 16.04**，使用**Gunicorn**处理动态请求，搭配**gevent**库实现异步响应。前端反向代理服务器使用**Nginx**。监测使用**Supervisor**来守护进程。    
-本站源码托管在[GitHub](https://github.com/jiyuankai/myblog)，开发相关日志可以在[CSDN博客](http://blog.csdn.net/jyk920902)中查看。   
+[网站地址](http://101.132.178.245:80/)，本站源码托管在[GitHub](https://github.com/jiyuankai/myblog)，开发相关日志可以在[CSDN博客](http://blog.csdn.net/jyk920902)中查看。   
 # 项目结构
 |-myblog  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-config.py 配置文件  
@@ -57,4 +57,4 @@
 历时一周，完成了后端和前端的重构。
 
 **2017-11-1**  
-网站成功在阿里云部署上线，可通过[http://101.132.178.245:80/](http://101.132.178.245:80/)公网IP访问。
+网站在阿里云部署上线。
