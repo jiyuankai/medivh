@@ -5,6 +5,8 @@ from .. import db
 from ..models import User, Blog, Comment
 from ..decorators import admin_required
 from .forms import ChangePasswordForm, BlogForm
+import logging
+logging.basicConfig(level=logging.INFO)
 
 # 修改密码
 @manage.route('/change-password', methods = ['GET', 'POST'])
@@ -73,7 +75,10 @@ def edit_blog(id):
 @admin_required
 @login_required
 def delete_blog(id):
-    blog = Blog.query.get_or_404(id)
+    blog = Blog.query.get_or_404(id)    
+    if blog.comments:
+        for c in blog.comments:
+            db.session.delete(c)
     db.session.delete(blog)
     db.session.commit()
     flash('文章已删除')

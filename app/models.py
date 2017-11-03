@@ -25,7 +25,7 @@ class User(UserMixin, db.Model):
         super(User, self).__init__(**kw)
         if self.email is not None and self.avatar_hash is None:
             self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-        if self.email == 'jiyuankai920902@126.com':
+        if self.email == 'admin@admin.com':
         	self.admin = True
         	db.session.add(self)
         	db.session.commit()
@@ -105,21 +105,11 @@ class Blog(db.Model):
 
     @staticmethod
     def on_changed_summary(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p']
-        target.summary_html = bleach.linkify(bleach.clean(
-            markdown(value, output_format = 'html'), 
-            tags = allowed_tags, strip = True))
+        target.summary_html = bleach.linkify(markdown(value, output_format = 'html'))
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p']
-        target.content_html = bleach.linkify(bleach.clean(
-            markdown(value, output_format = 'html'), 
-            tags = allowed_tags, strip = True))
+        target.content_html = bleach.linkify(markdown(value, output_format = 'html'))
 
     @staticmethod
     def generate_fake(count=100):
@@ -139,8 +129,6 @@ class Blog(db.Model):
                 db.session.commit()
             except AttributeError:
                 pass    
-
-
 
 db.event.listen(Blog.summary, 'set', Blog.on_changed_summary)
 db.event.listen(Blog.content, 'set', Blog.on_changed_content)
