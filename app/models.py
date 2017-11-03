@@ -133,6 +133,23 @@ class Blog(db.Model):
 db.event.listen(Blog.summary, 'set', Blog.on_changed_summary)
 db.event.listen(Blog.content, 'set', Blog.on_changed_content)
 
+# Blog和Label多对多关系的中间表
+classifications = db.Table('classifications', 
+    db.Column('blog_id', db.Integer, db.ForeignKey('blogs.id')),
+    db.Column('label_id', db.Integer, db.ForeignKey('labels.id'))
+)
+
+class Label(db.Model):
+    __tablename__= 'labels'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    # 多对多关系模型
+    blogs = db.relationship('Blog',
+                          secondary=classifications,
+                          backref=db.backref('labels', lazy='dynamic'),
+                          lazy='dynamic')
+
 class Comment(db.Model):
     __tablename__ = 'comments'
 
@@ -161,3 +178,6 @@ class Comment(db.Model):
                         blog = b)
             db.session.add(c)
             db.session.commit()
+
+
+

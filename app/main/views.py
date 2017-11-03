@@ -2,7 +2,7 @@ from flask_login import login_required, current_user
 from flask import url_for, render_template, current_app, redirect, request, flash
 from . import main
 from .. import db
-from ..models import Blog, Comment
+from ..models import Blog, Comment, Label
 from .forms import CreateCommentForm
 
 @main.route('/')
@@ -12,7 +12,8 @@ def index():
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], 
         error_out=False)
     blogs = pagination.items
-    return render_template('index.html', blogs=blogs, pagination=pagination)
+    labels = Label.query.all()
+    return render_template('index.html', blogs=blogs, labels=labels, pagination=pagination)
 
 @main.route('/blog/<int:id>', methods=['GET', 'POST'])
 def blog(id):

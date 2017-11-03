@@ -1,12 +1,12 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %} MyBlog {% endblock%}
+{% block title %}{% block page_title %}{% endblock %} - 嵇元凯的博客{% endblock%}
 
         {% block head %}
         {{ super() }}
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-        <link href="{{ url_for('static', filename='styles66.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ url_for('static', filename='styles68.css') }}" rel="stylesheet" type="text/css">
         {% endblock %}
 
         {% block navbar %}

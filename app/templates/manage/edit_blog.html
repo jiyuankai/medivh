@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}MyBlog - 修改日志{% endblock %}
+{% block page_title %}修改日志{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -11,6 +11,8 @@
     <form method='POST' role="form">
             {{ form.hidden_tag() }}
             {{ form.name.label }} {{ form.name(class="form-control") }}
+            <br>
+            {{ form.label.label }} {{ form.label(class="form-control") }}
             <br>
             {{ form.summary.label }}{{ form.summary(class="form-control", rows="6") }}
             <br>

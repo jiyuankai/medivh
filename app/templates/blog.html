@@ -2,14 +2,16 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
-{% block title %}MyBlog - {{ blog.name }}{% endblock %}
+{% block page_title %}{% if blog.id == 998 %}关于本站{% else %}{{ blog.name }}{% endif %}{% endblock %}
 
 {% block about %}{% if blog.id == 998 %}"active"{% endif %}{% endblock %}
 
 {% block page_content %}
 
 <div class="col-md-8 blog-post">    
-    <h2 class="blog-post-title">{{ blog.name }}</h2>
+    <h2 class="blog-post-title">{% if blog.id == 998 %}{% else %}{{ blog.name }}{% endif %}</h2>
+    {% if blog.id == 998 %}{% else %}<h4 class='label label-danger'>python</h4>&nbsp;&nbsp;<h4 class='label label-warning '>java</h4>
+    <h5></h5>{% endif %}
     {% if blog.id != 998 %}
     <p class="lead blog-description">{{ moment(blog.create_at).format('LL hh:mm:ss') }}&nbsp;
         <a href="#comments">评论({{ blog.comments.count() }})</a> &nbsp;

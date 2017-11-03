@@ -2,7 +2,7 @@ from flask import render_template, url_for, redirect, request, flash
 from flask_login import login_required, current_user
 from . import manage
 from .. import db
-from ..models import User, Blog, Comment
+from ..models import User, Blog, Comment, Label
 from ..decorators import admin_required
 from .forms import ChangePasswordForm, BlogForm
 import logging
@@ -47,6 +47,18 @@ def create_blog():
                     content=form.content.data, 
                     author=current_user._get_current_object())
         db.session.add(blog)
+        labels = form.label.data.split(';')
+        for label in labels:
+            # 找标签是否存在，标签大小写不敏感
+            lab = Label.query.filter_by(name=label).first()
+            # 若不存在，则新建标签
+            if lab is None:
+                newlab = Label(name=label)
+                newlab.blogs.append(blog)
+                db.session.add(newlab)
+            else:
+                lab.blogs.append(blog)
+                db.session.add(lab)
         db.session.commit()
         return redirect(url_for('main.blog', id=blog.id))
     return render_template('manage/create_blog.html', form=form)
@@ -63,9 +75,29 @@ def edit_blog(id):
         blog.summary = form.summary.data
         blog.content = form.content.data
         db.session.add(blog)
+        # 暴力修改，先删掉所有标签，再把标签栏里全部新增
+        for l in blog.labels.all():
+            l.blogs.remove(blog)
+            db.session.add(l)
+        db.session.commit()
+        # 加标签
+        labels = form.label.data.split(';')
+        for label in labels:
+            # 找标签是否存在
+            lab = Label.query.filter_by(name=label).first()
+            # 创建新的分类标签
+            if lab is None:
+                newlab = Label(name=label)
+                newlab.blogs.append(blog)
+                db.session.add(newlab)
+            else:
+                lab.blogs.append(blog)
+                db.session.add(lab)                
         db.session.commit()
         return redirect(url_for('main.blog', id=blog.id))
     form.name.data = blog.name
+    # blog.labels.all() 返回多个labels，获取他们的name，并转换成以;链接的str
+    form.label.data = ';'.join([lab.name for lab in blog.labels.all()])
     form.summary.data = blog.summary
     form.content.data = blog.content
     return render_template('manage/edit_blog.html', form=form)

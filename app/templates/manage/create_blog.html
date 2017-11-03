@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}MyBlog - 创建日志{% endblock %}
+{% block page_title %}创建日志{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
@@ -12,6 +12,8 @@
             {{ form.hidden_tag() }}
             {{ form.name.label }} {{ form.name(class="form-control") }}
             <br>
+            {{ form.label.label }} {{ form.label(class="form-control") }}
+            <br>
             {{ form.summary.label }}{{ form.summary(class="form-control", rows="6") }}
             <br>
             {{ form.content.label }}{{ form.content(class="form-control", rows="12") }}
@@ -19,6 +21,7 @@
             {{ form.submit(class="btn btn-default") }}
     </form>
 </div>
+<div>  </div>
 {% endblock %}
 
 {% block scripts %}

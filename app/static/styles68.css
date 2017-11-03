@@ -138,7 +138,7 @@ display:inline-block;
 /*
  * href
  */
-
+.blog-post-read a {text-decoration:none;}
 .blog-post-meta a {text-decoration:none;}
 .blog-post-title a {text-decoration:none;}
 .blog-description a {text-decoration:none;}

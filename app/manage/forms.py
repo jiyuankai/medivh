@@ -14,6 +14,7 @@ class ChangePasswordForm(FlaskForm):
 # 创建博客
 class BlogForm(FlaskForm):
 	name = StringField('标题', validators=[Required()])
+	label = StringField("分类", validators=[Required()])
 	summary = TextAreaField('摘要', validators=[Required()])
 	content = PageDownField('内容', validators=[Required()])
 	submit = SubmitField('发表文章')

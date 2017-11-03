@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
 
-{% block title %}MyBlog{% endblock %}
+{% block title %}嵇元凯的博客{% endblock %}
 
 {% block index %}"active"{% endblock %}
 
@@ -12,8 +12,10 @@
                     {% if blog.id != 998 %}
                     <div class="blog-post">
                         <h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
+                        <h4 class='label label-danger'>python</h4>&nbsp;&nbsp;<h4 class='label label-warning '>java</h4>
+                        <h5></h5>
                         <p class="blog-post-meta">
-                            {{ moment(blog.create_at).format('LL hh:mm:ss') }} &nbsp;
+                            {{ moment(blog.create_at).format('LL') }} &nbsp;
                             <a href="{{ url_for('main.blog', id=blog.id) }}#comments">评论({{ blog.comments.count() }})</a> &nbsp;
                             {% if current_user.is_administrator() %}<a href="{{ url_for('manage.edit_blog', id=blog.id) }}">编辑</a>{% endif %}
                         </p>
@@ -35,13 +37,19 @@
                         <p>欢迎访问我的个人博客～</p>
                     </div>
                     <div class="sidebar-module">
-                        <h4>关于我的</h4>
+                        <h5><b>关于我的</b></h5>
                         <ol class="list-unstyled">                           
                             <li><a href="https://github.com/jiyuankai/myblog" target="_blank">GitHub <img class="github" src="{{ url_for('static', filename='github.ico') }}"></a></li>
                             <li><a href="http://blog.csdn.net/jyk920902" target="_blank">CSDN博客 <img class="github" src="{{ url_for('static', filename='csdn.ico') }}"></a></li>
                             <li><a href="#">422925090@qq.com</a></li>
-
                         </ol>
+                        <hr>
+                        <h5><b>文章分类</b></h5>
+                        <ol class="list-unstyled">
+                            {% for label in labels %}                           
+                            <li><a href="#">{{ label.name }}({{ label.blogs.count() }})</a></li>
+                            {% endfor %}
+                        </ol>                        
                     </div>               
                 </div><!-- /.blog-sidebar -->
             </div><!-- /.row -->
