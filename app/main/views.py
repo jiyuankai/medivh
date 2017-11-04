@@ -8,6 +8,13 @@ from .forms import CreateCommentForm
 @main.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
+    label = Label.query.filter_by(name=request.args.get('label', '')).first()
+    if label is not None:
+        pagination = label.blogs.order_by(Blog.create_at.desc()).paginate(
+            page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
+        blogs = pagination.items
+        labels = Label.query.all()
+        return render_template('index.html', blogs=blogs, labels=labels, pagination=pagination)
     pagination = Blog.query.order_by(Blog.create_at.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], 
         error_out=False)

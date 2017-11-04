@@ -144,11 +144,23 @@ class Label(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    type = db.Column(db.String(64))
     # 多对多关系模型
     blogs = db.relationship('Blog',
                           secondary=classifications,
                           backref=db.backref('labels', lazy='dynamic'),
                           lazy='dynamic')
+
+    def __init__(self, **kw):
+        super(Label, self).__init__(**kw)
+        db.session.add(self)
+        db.session.commit()
+        L = ['danger', 'warning', 'info', 'success', 'primary', 'default']
+        if self.type == None:
+            index = (self.id + 6) % 6
+            self.type = L[index]
+            db.session.add(self)
+            db.session.commit()
 
 class Comment(db.Model):
     __tablename__ = 'comments'

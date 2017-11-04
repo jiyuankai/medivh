@@ -49,16 +49,17 @@ def create_blog():
         db.session.add(blog)
         labels = form.label.data.split(';')
         for label in labels:
-            # 找标签是否存在，标签大小写不敏感
-            lab = Label.query.filter_by(name=label).first()
-            # 若不存在，则新建标签
-            if lab is None:
-                newlab = Label(name=label)
-                newlab.blogs.append(blog)
-                db.session.add(newlab)
-            else:
-                lab.blogs.append(blog)
-                db.session.add(lab)
+            if label:
+                # 找标签是否存在
+                lab = Label.query.filter_by(name=label).first()
+                # 若不存在，则新建标签
+                if lab is None:
+                    newlab = Label(name=label)
+                    newlab.blogs.append(blog)
+                    db.session.add(newlab)
+                else:
+                    lab.blogs.append(blog)
+                    db.session.add(lab)
         db.session.commit()
         return redirect(url_for('main.blog', id=blog.id))
     return render_template('manage/create_blog.html', form=form)
@@ -79,20 +80,25 @@ def edit_blog(id):
         for l in blog.labels.all():
             l.blogs.remove(blog)
             db.session.add(l)
+            # 清理无内容标签
+            if l.blogs.count() == 0:
+                db.session.delete(l)
         db.session.commit()
         # 加标签
         labels = form.label.data.split(';')
         for label in labels:
-            # 找标签是否存在
-            lab = Label.query.filter_by(name=label).first()
-            # 创建新的分类标签
-            if lab is None:
-                newlab = Label(name=label)
-                newlab.blogs.append(blog)
-                db.session.add(newlab)
-            else:
-                lab.blogs.append(blog)
-                db.session.add(lab)                
+            # 判断标签名存在
+            if label:
+                # 标签在数据库是否存在
+                lab = Label.query.filter_by(name=label).first()
+                # 创建新的分类标签
+                if lab is None:
+                    newlab = Label(name=label)
+                    newlab.blogs.append(blog)
+                    db.session.add(newlab)
+                else:
+                    lab.blogs.append(blog)
+                    db.session.add(lab)         
         db.session.commit()
         return redirect(url_for('main.blog', id=blog.id))
     form.name.data = blog.name
@@ -107,10 +113,18 @@ def edit_blog(id):
 @admin_required
 @login_required
 def delete_blog(id):
-    blog = Blog.query.get_or_404(id)    
-    if blog.comments:
-        for c in blog.comments:
+    blog = Blog.query.get_or_404(id)
+    if blog.comments.all():
+        for c in blog.comments.all():
             db.session.delete(c)
+    # 将标签中的此文章删除
+    if blog.labels.all():
+        for lab in blog.labels.all():
+            lab.blogs.remove(blog)
+            db.session.add(lab)
+            # 清理无内容标签
+            if lab.blogs.count() == 0:
+                db.session.delete(lab)
     db.session.delete(blog)
     db.session.commit()
     flash('文章已删除')

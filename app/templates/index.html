@@ -12,7 +12,7 @@
                     {% if blog.id != 998 %}
                     <div class="blog-post">
                         <h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
-                        <h4 class='label label-danger'>python</h4>&nbsp;&nbsp;<h4 class='label label-warning '>java</h4>
+                        {% include "_labels.html" %}
                         <h5></h5>
                         <p class="blog-post-meta">
                             {{ moment(blog.create_at).format('LL') }} &nbsp;
@@ -46,10 +46,11 @@
                         <hr>
                         <h5><b>文章分类</b></h5>
                         <ol class="list-unstyled">
-                            {% for label in labels %}                           
-                            <li><a href="#">{{ label.name }}({{ label.blogs.count() }})</a></li>
+                            <li><a href="{{ url_for('main.index')}}">全部</a></li>
+                            {% for label in labels %}
+                            <li><a href="{{ url_for('main.index', label=label.name)}}">{{ label.name }}({{ label.blogs.count() }})</a></li>
                             {% endfor %}
-                        </ol>                        
+                        </ol>
                     </div>               
                 </div><!-- /.blog-sidebar -->
             </div><!-- /.row -->

@@ -1,0 +1,4 @@
+{% for lab in blog.labels.all() %}
+	<h4 class='label label-{{ lab.type }}'>{{ lab.name }}</h4>&nbsp;
+{% endfor %}
+        

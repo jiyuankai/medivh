@@ -11,7 +11,7 @@ class ChangePasswordForm(FlaskForm):
     password2 = PasswordField('确认密码', validators=[Required()])
     submit = SubmitField('确认修改')
 
-# 创建博客
+# 创建/编辑博客
 class BlogForm(FlaskForm):
 	name = StringField('标题', validators=[Required()])
 	label = StringField("分类", validators=[Required()])
