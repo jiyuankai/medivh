@@ -16,7 +16,9 @@
                         <h5></h5>
                         <p class="blog-post-meta">
                             {{ moment(blog.create_at).format('LL') }} &nbsp;
-                            <a href="{{ url_for('main.blog', id=blog.id) }}#comments">评论({{ blog.comments.count() }})</a> &nbsp;
+                            <a href="{{ url_for('main.blog', id=blog.id) }}#comments">
+                                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;评论({{ blog.comments.count() }})
+                            </a> &nbsp;
                             {% if current_user.is_administrator() %}<a href="{{ url_for('manage.edit_blog', id=blog.id) }}">编辑</a>{% endif %}
                         </p>
                         <p class="index-summary">

@@ -131,6 +131,43 @@ def delete_blog(id):
     return redirect(url_for('manage.manage_blogs',
                             page=request.args.get('page', 1, type=int)))
 
+# 收藏
+@manage.route('/collections/enable/<int:id>')
+@login_required
+def enable_collect(id):
+    blog = Blog.query.get_or_404(id)
+    user = current_user._get_current_object()
+    if not blog.is_collected(user):
+        user.collections.append(blog)
+        db.session.add(user)
+        db.session.commit()
+        flash('收藏成功')
+    else:
+        flash('请勿重复收藏')
+    return redirect(url_for('main.blog', id=id))
+
+# 取消收藏
+@manage.route('/collections/disable/<int:id>')
+@login_required
+def disable_collect(id):
+    blog = Blog.query.get_or_404(id)
+    user = current_user._get_current_object()
+    if blog.is_collected(user):
+        user.collections.remove(blog)
+        db.session.add(user)
+        db.session.commit()
+        flash('取消收藏')
+    else:
+        flash('并未收藏该文章')
+    return redirect(url_for('main.blog', id=id))
+
+
+#@manage.route()
+#@login_required
+#def manage_collections():
+
+
+
 # 评论管理
 @manage.route('/comments')
 @admin_required

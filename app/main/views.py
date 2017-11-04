@@ -2,7 +2,7 @@ from flask_login import login_required, current_user
 from flask import url_for, render_template, current_app, redirect, request, flash
 from . import main
 from .. import db
-from ..models import Blog, Comment, Label
+from ..models import User, Blog, Comment, Label
 from .forms import CreateCommentForm
 
 @main.route('/')

@@ -48,8 +48,8 @@
 # 开发日志
 
 **2017-9-20**  
-原网站基于python3.5的**asyncio**库，搭配**aiohttp**库和**uikit** CSS框架开发。
-自行构建Web和ORM框架，数据库使用MySQL。
+原网站基于python3.5的**asyncio**和 **aiohttp**库开发，实现异步响应。前端使用**uikit** CSS框架。
+自行构建了Web和ORM框架，数据库使用**MySQL**。
 
 **2017-10-20**  
 决定使用**Flask** + **bootstrap**重构网站前后端。ORM框架选用**SQLAlchemy**。  

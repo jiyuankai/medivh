@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li class={% block index %}"#active"{% endblock %}><a href="{{ url_for('main.index') }}">主页</a></li>
                         <li class={% block about %}"#active"{% endblock %}><a href="{{ url_for('main.blog', id=998) }}">关于本站</a></li>
-                        <li><a href="https://github.com/jiyuankai/myblog" target="_blank">GitHub</a></li>
+                        <li><a href="https://github.com/jiyuankai/myblog/blob/master/README.md" target="_blank">GitHub</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if current_user.is_authenticated %}
@@ -39,6 +39,7 @@
                                 <li><a href="{{ url_for('manage.create_blog') }}">创建日志</a></li> 
                                 <li><a href="{{ url_for('manage.manage_blogs') }}">博客管理</a></li>
                                 {% endif %}
+                                <li><a href="#">我的收藏</a></li>
                                 <li><a href="{{ url_for('manage.change_password') }}">修改密码</a></li> 
                                 <li role="separator" class="divider"></li>                                              
                                 <li><a href="{{ url_for('auth.logout') }}">注销用户</a></li>

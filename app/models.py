@@ -7,6 +7,13 @@ from flask import current_app, request
 from markdown import markdown
 import bleach, hashlib
 
+
+# 收藏功能：Blog和User多对多关系的中间表
+collections = db.Table('collections',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('blog_id', db.Integer, db.ForeignKey('blogs.id'))
+)
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
@@ -20,6 +27,9 @@ class User(UserMixin, db.Model):
     create_at = db.Column(db.DateTime, default=datetime.utcnow)
     blogs = db.relationship('Blog', backref='author', lazy= 'dynamic')
     comments = db.relationship('Comment', backref='author', lazy= 'dynamic')
+    collections = db.relationship('Blog', secondary=collections, 
+                                   backref=db.backref('users', lazy='dynamic'),
+                                   lazy='dynamic')
 
     def __init__(self, **kw):
         super(User, self).__init__(**kw)
@@ -82,6 +92,8 @@ login_manager.anonymous_user = AnonymousUser
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
+
 class Blog(db.Model):
     __tablename__ = 'blogs'
 
@@ -94,6 +106,10 @@ class Blog(db.Model):
     create_at = db.Column(db.DateTime, default=datetime.utcnow, index = True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = db.relationship('Comment', backref='blog', lazy= 'dynamic')
+
+    def is_collected(self, user):
+        return self.users.filter_by(id=user.id).first() is not None
+
 
     @staticmethod
     def create_about_blog():
@@ -133,7 +149,7 @@ class Blog(db.Model):
 db.event.listen(Blog.summary, 'set', Blog.on_changed_summary)
 db.event.listen(Blog.content, 'set', Blog.on_changed_content)
 
-# Blog和Label多对多关系的中间表
+# 分类功能：Blog和Label多对多关系的中间表
 classifications = db.Table('classifications', 
     db.Column('blog_id', db.Integer, db.ForeignKey('blogs.id')),
     db.Column('label_id', db.Integer, db.ForeignKey('labels.id'))
