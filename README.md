@@ -52,7 +52,8 @@
 自行构建Web框架和ORM，数据库使用MySQL。
 
 **2017-10-20**  
-决定使用**Flask** + **bootstrap**重构网站。
+决定使用**Flask** + **bootstrap**重构网站前后端。
+ORM框架选用SQLAlchemy。
 
 **2017-10-28**  
 历时一周，完成了后端和前端的重构。
