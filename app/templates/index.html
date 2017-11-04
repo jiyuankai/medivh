@@ -37,14 +37,14 @@
                         <p>欢迎访问我的个人博客～</p>
                     </div>
                     <div class="sidebar-module">
-                        <h5><b>关于我的</b></h5>
+                        <h4><b>关于我的</b></h4>
                         <ol class="list-unstyled">                           
                             <li><a href="https://github.com/jiyuankai/myblog" target="_blank">GitHub <img class="github" src="{{ url_for('static', filename='github.ico') }}"></a></li>
                             <li><a href="http://blog.csdn.net/jyk920902" target="_blank">CSDN博客 <img class="github" src="{{ url_for('static', filename='csdn.ico') }}"></a></li>
                             <li><a href="#">422925090@qq.com</a></li>
                         </ol>
                         <hr>
-                        <h5><b>文章分类</b></h5>
+                        <h4><b>文章分类</b></h4>
                         <ol class="list-unstyled">
                             <li><a href="{{ url_for('main.index')}}">全部</a></li>
                             {% for label in labels %}
