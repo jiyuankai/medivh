@@ -4,17 +4,24 @@ from . import main
 from .. import db
 from ..models import User, Blog, Comment, Label
 from .forms import CreateCommentForm
+import logging
+logging.basicConfig(level=logging.INFO)
 
 @main.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    label = Label.query.filter_by(name=request.args.get('label', '')).first()
-    if label is not None:
+    labname = request.args.get('label', None)
+    # 选择了分类时
+    if labname is not None:
+        label = Label.query.filter_by(name=labname).first()
         pagination = label.blogs.order_by(Blog.create_at.desc()).paginate(
-            page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
+            page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], 
+            error_out=False)
         blogs = pagination.items
         labels = Label.query.all()
-        return render_template('index.html', blogs=blogs, labels=labels, pagination=pagination)
+        logging.info([p for p in pagination.iter_pages()])
+        return render_template('index.html', blogs=blogs, labels=labels, label=label, pagination=pagination)
+    # 未选择分类时
     pagination = Blog.query.order_by(Blog.create_at.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], 
         error_out=False)

@@ -131,6 +131,17 @@ def delete_blog(id):
     return redirect(url_for('manage.manage_blogs',
                             page=request.args.get('page', 1, type=int)))
 
+# 我的收藏
+@manage.route('/collections')
+@login_required
+def manage_collections():
+    page = request.args.get('page', 1, type=int)
+    pagination = current_user.collections.paginate(
+        page, per_page=10, error_out=False)
+    blogs = pagination.items
+    return render_template('manage/manage_collections.html', blogs=blogs, 
+                    pagination=pagination, page=page)
+
 # 收藏
 @manage.route('/collections/enable/<int:id>')
 @login_required
@@ -144,8 +155,13 @@ def enable_collect(id):
         flash('收藏成功')
     else:
         flash('请勿重复收藏')
-    return redirect(url_for('main.blog', id=id))
-
+    # 在文章详情页操作   
+    if request.args.get('info', None) == 'blog':
+        return redirect(url_for('main.blog', id=id))
+    if request.args.get('info', None) == 'manage':
+        return redirect(url_for('manage.manage_collections', 
+                                page=request.args.get('page', 1, type=int)))    
+    
 # 取消收藏
 @manage.route('/collections/disable/<int:id>')
 @login_required
@@ -159,14 +175,12 @@ def disable_collect(id):
         flash('取消收藏')
     else:
         flash('并未收藏该文章')
-    return redirect(url_for('main.blog', id=id))
-
-
-#@manage.route()
-#@login_required
-#def manage_collections():
-
-
+    # 在文章详情页操作
+    if request.args.get('info', None) == 'blog':
+        return redirect(url_for('main.blog', id=id))
+    if request.args.get('info', None) == 'manage':
+        return redirect(url_for('manage.manage_collections', 
+                                page=request.args.get('page', 1, type=int)))  
 
 # 评论管理
 @manage.route('/comments')

@@ -14,8 +14,8 @@
                         <h2 class="blog-post-title"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name }}</a></h2>
                         {% include "_labels.html" %}
                         <h5></h5>
-                        <p class="blog-post-meta">
-                            {{ moment(blog.create_at).format('LL') }} &nbsp;
+                        <p class="blog-post-meta" id="{{ blog.name }}">
+                            {{ moment(blog.create_at).format('LL') }} &nbsp;                        
                             <a href="{{ url_for('main.blog', id=blog.id) }}#comments">
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;评论({{ blog.comments.count() }})
                             </a> &nbsp;
@@ -59,7 +59,11 @@
 {% if pagination %}
 <div class="col-md-8 pagination-index">
     <div class="pagination-Nav">
+        {% if label %}
+        {{ macros.pagination_widget(pagination, 'main.index', label=label.name) }}
+        {% else %}
         {{ macros.pagination_widget(pagination, 'main.index') }}
+        {% endif %}
     </div>
 </div>
 {% endif %}

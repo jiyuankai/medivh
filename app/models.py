@@ -178,6 +178,28 @@ class Label(db.Model):
             db.session.add(self)
             db.session.commit()
 
+    @staticmethod
+    def generate_fake(count=3):
+        from random import randint 
+
+        if not Label.query.count():
+            L = ['Java', 'Basic', 'Python', 'HTML','Javascript', 'C++', 'PHP', 'SQL',
+                 'Flask', 'Django', 'jQuery', 'Ajax']
+            for labname in L:
+                l = Label(name=labname)
+                db.session.add(l)
+                db.session.commit()            
+
+        label_count = Label.query.count()
+        blogs = Blog.query.all()       
+        for b in blogs: 
+            for i in range(randint(1,count)):
+                l = Label.query.offset(randint(0, label_count - 1)).first()
+                l.blogs.append(b)
+                db.session.add(l)
+                db.session.commit()
+
+
 class Comment(db.Model):
     __tablename__ = 'comments'
 

@@ -19,9 +19,9 @@
     <p class="lead blog-description">{{ moment(blog.create_at).format('LL hh:mm:ss') }}&nbsp;
         {% if current_user.is_authenticated %}
             {% if blog.is_collected(current_user) %}
-                <a href="{{ url_for('manage.disable_collect', id=blog.id) }}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;取消收藏</a>&nbsp;  
+                <a href="{{ url_for('manage.disable_collect', id=blog.id, info='blog') }}"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;取消收藏</a>&nbsp;  
             {% else %}
-                <a href="{{ url_for('manage.enable_collect', id=blog.id) }}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;收藏</a>&nbsp;
+                <a href="{{ url_for('manage.enable_collect', id=blog.id, info='blog') }}"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;收藏</a>&nbsp;
             {% endif %}
         {% endif %}
         <a href="#comments"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;评论({{ blog.comments.count() }})</a> &nbsp;
