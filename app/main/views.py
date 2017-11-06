@@ -48,3 +48,7 @@ def blog(id):
     comments = pagination.items
     return render_template('blog.html', blog=blog, comments=comments, 
                             pagination=pagination, form=form, page=page)
+
+@main.route('/profile')
+def profile():
+    return render_template('profile.html')

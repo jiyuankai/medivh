@@ -17,7 +17,7 @@
                         <thead>
                             <tr>
                                 <th class="th-left">标题</th>
-                                <th>类型</th>
+                                <th class="th-left">类型</th>
                                 <th>发表日期</th>
                                 <th>评论数</th>
                                 <th>操作</th>
@@ -28,7 +28,7 @@
                             {% if blog.id != 998 %}
                             <tr>
                                 <td class="th-left"><a href="{{ url_for('main.blog', id=blog.id) }}">{{ blog.name[:30] }}</a></td>
-                                <td>
+                                <td class="th-left">
                                     {% for lab in blog.labels %}
                                     {{ lab.name }}&nbsp;
                                     {% endfor%}
