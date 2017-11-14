@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li class={% block index %}"#active"{% endblock %}><a href="{{ url_for('main.index') }}">主页</a></li>
                         <li class={% block about %}"#active"{% endblock %}><a href="{{ url_for('main.blog', id=998) }}">关于本站</a></li>
-                        <li class=""><a href="{{ url_for('main.profile') }}">我的简历</a></li>
+                        <li class=""><a href="#"></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if current_user.is_authenticated %}

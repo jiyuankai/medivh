@@ -30,6 +30,7 @@ def deploy():
     
     upgrade()
     Blog.create_about_blog()
+    User.create_administrator()
 
 
 if __name__ == '__main__':
