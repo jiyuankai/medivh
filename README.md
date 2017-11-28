@@ -4,7 +4,7 @@
 项目部署在阿里云，服务器操作系统为**Ubuntu 16.04**，使用**Gunicorn**处理动态请求，搭配**gevent**库实现异步响应。前端反向代理服务器使用**Nginx**。监测使用**Supervisor**来守护进程。    
 开发相关日志可以在[CSDN博客](http://blog.csdn.net/jyk920902)中查看。  
 安装教程点[这里](https://github.com/jiyuankai/myblog/blob/master/install.md)～  
-如果觉得还满意的话，请右上角star支持我一下哈，谢谢～！ 
+如果喜欢的话，请右上角star支持一下哈～ 
 # 项目结构
 |-myblog  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-config.py 配置文件  
