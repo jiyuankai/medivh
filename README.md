@@ -52,7 +52,7 @@
 # 开发日志
 
 **2017-9-20**  
-原网站基于python3.5的`asyncio`和`aiohttp`库开发，实现异步响应。前端使用`uikit` CSS框架。
+原网站基于python3.5的`asyncio`和`aiohttp`库开发，实现异步响应。前端使用`uikit` CSS框架。    
 自行构建了Web和ORM框架，数据库使用`MySQL`。
 
 **2017-10-20**  
