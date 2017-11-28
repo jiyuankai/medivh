@@ -7,7 +7,7 @@
 ## 本地环境搭建（windows）  
 ### 1、安装`virtualenv`虚拟环境  
 为了防止本项目安装的扩展包与你的本地包出现版本冲突等情况，强烈建议将本项目安装到虚拟环境中。   
-使用pip安装：  
+使用`pip`安装：  
 ```
 pip install virtualenv
 ```
@@ -15,15 +15,15 @@ pip install virtualenv
 ```
 virtualenv venv
 ```
-初始化完毕后，启动virtualenv的Shell环境：  
+初始化完毕后，启动`virtualenv`的`Shell`环境：  
 ```
 venv\Scripts\activate
 ```
-命令行输入界面左侧提示符变成`<venv>`说明已进入Shell。  
+命令行输入界面左侧提示符变成`<venv>`说明已进入`Shell`。  
 退出可直接输入```deactivate```即可恢复正常命令行。 
 ### 2、安装扩展包
-在项目文件根目录下有requestments.txt需求文件，保存了项目所需的扩展包  
-启动虚拟环境Shell，用pip一键安装：  
+在项目文件根目录下有`requestments.txt`需求文件，保存了项目所需的扩展包  
+启动虚拟环境`Shell`，用`pip`一键安装：  
 ```
 pip install -r requirements.txt
 ```
@@ -32,13 +32,13 @@ pip install -r requirements.txt
 ### 1、配置文件  
 项目根目录下的`config.py`是我本地开发环境的配置，还请根据自己的本地环境重新配置。  
 **a、mysql配置**  
-config.py中的类，分别用于开发，生产，测试三种环境，其中都涉及到mysql的连接。  
-配置mysql需要写URI，以下URI请根据实际情况做修改。  
+`config.py`中的类，分别用于开发，生产，测试三种环境，其中都涉及到`mysql`的连接。  
+配置mysql需要写`URI`，以下URI请根据实际情况做修改。  
 ```
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@localhost:3306/database'
 ```
 `user`mysql用户名，`password`mysql密码，`database`数据库名。    
-**PS**：数据库手动创建即可，三个不同环境创建三个database。    
+**PS**：数据库手动创建即可，三个不同环境创建三个`database`。    
 **b、选择环境**  
 `manage.py`中`create_app`函数默认是`default`，对应config.py中的`development`类。  
 
