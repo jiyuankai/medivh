@@ -4,7 +4,7 @@
 项目中还涉及的很多廖大教程里没有的东西（数据库迁移等），所以想详细了解的话可以去看看这本书，我这里只简单写一下如何最快配置然后让项目跑起来。  
 
 如果对我的小项目还满意的话，请star右上角以资鼓励哈，谢谢～！  
-项目源码[请见]()   
+项目源码[请见](https://github.com/jiyuankai/myblog)   
 ## 本地环境搭建（windows）  
 ### 1、安装`virtualenv`虚拟环境  
 为了防止本项目安装的扩展包与你的本地包出现版本冲突等情况，强烈建议将本项目安装到虚拟环境中。   
@@ -29,7 +29,8 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 可以看到`pip`会自动将包安装完毕。  
-### 3、配置文件  
+## 配置文件和数据库
+### 1、配置文件  
 项目根目录下的`config.py`是我本地开发环境的配置，还请根据自己的本地环境重新配置。  
 **a、mysql配置**  
 config.py中的类，分别用于开发，生产，测试三种环境，其中都涉及到mysql的连接。  
@@ -42,7 +43,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://user:password@localhost:3306/database
 **b、选择环境**  
 `manage.py`中`create_app`函数默认是`default`，对应config.py中的`development`类。  
 
-### 4、创建数据表
+### 2、创建数据表
 Python Shell模式启动项目：
 ```
 python manage.py shell
@@ -53,8 +54,15 @@ db.create_all()
 ```
 会在`database`中（database必须已存在），创建`app/models.py`里的所有表。    
 
-### 5、生成一个管理员帐户
-在app/models.py中，User类下有create_administrator()方法，改成你自定义的管理员帐户  
+### 3、运行
+```
+python manage.py runserver
+```
+浏览器输入`localhost:5000`，就可以看到页面。  
+
+## 生成一些数据
+### 1、生成一个管理员帐户
+在`app/models.py`中，`User`类下有`create_administrator()`方法，改成你自定义的管理员帐户  
 Python Shell模式启动项目：  
 ```
 python manage.py shell
@@ -64,14 +72,8 @@ python manage.py shell
 User.create_administrator()
 ```
 
-### 6、运行
-```
-python manage.py runserver
-```
-浏览器输入`localhost:5000`，就可以看到页面。  
-
-### 7、生成一些虚拟数据
-我在app/models.py中提供了生成虚拟数据的静态方法，用于生成虚拟的用户，文章、评论和标签。  
+### 2、生成一些虚拟数据
+我在`app/models.py`中提供了生成虚拟数据的静态方法，用于生成虚拟的用户，文章、评论和标签数据。  
 方便测试分页导航，和一些需要数据的其他功能。
 Python Shell模式启动项目：  
 ```
