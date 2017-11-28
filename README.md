@@ -1,7 +1,7 @@
 # myblog
 本项目是由Python实现的[个人博客网站](http://www.jiyuankai.top)。    
-后端使用**Python3**编写，基于**Flask**框架，并以**Jinja2**作为模板引擎。使用**MySQL**数据库。前端部分使用的是**bootstrap** CSS框架。  
-项目部署在阿里云，服务器操作系统为**Ubuntu 16.04**，使用**Gunicorn**处理动态请求，搭配**gevent**库实现异步响应。前端反向代理服务器使用**Nginx**。监测使用**Supervisor**来守护进程。    
+后端使用**Python3**编写，基于`Flask`框架，并以`Jinja2`作为模板引擎。使用`MySQL`数据库。前端部分使用的是`bootstrap` CSS框架。  
+项目部署在阿里云，服务器操作系统为`Ubuntu 16.04`，使用`Gunicorn`处理动态请求，搭配`gevent`库实现异步响应。前端反向代理服务器使用`Nginx`。监测使用`Supervisor`来守护进程。    
 
 如果喜欢的话，可以点击右上角star支持一下我哈～  
 开发相关日志可以在[CSDN博客](http://blog.csdn.net/jyk920902)中查看。  
@@ -52,11 +52,11 @@
 # 开发日志
 
 **2017-9-20**  
-原网站基于python3.5的**asyncio**和 **aiohttp**库开发，实现异步响应。前端使用**uikit** CSS框架。
-自行构建了Web和ORM框架，数据库使用**MySQL**。
+原网站基于python3.5的`asyncio`和`aiohttp`库开发，实现异步响应。前端使用`uikit` CSS框架。
+自行构建了Web和ORM框架，数据库使用`MySQL`。
 
 **2017-10-20**  
-决定使用**Flask** + **bootstrap**重构网站前后端。ORM框架选用**SQLAlchemy**。  
+决定使用`Flask` + `bootstrap`重构网站前后端。ORM框架选用`SQLAlchemy`。  
 
 **2017-10-28**  
 历时一周，完成了后端和前端的重构。
@@ -77,4 +77,4 @@
 3、文章详情页显示收藏/取消收藏按钮；  
 
 **2017-11- 13**   
-经过两周的审核，域名www.jiyuankai.top终于备案成功了～  
+经过两周的审核，域名 www.jiyuankai.top 终于备案成功了～  
