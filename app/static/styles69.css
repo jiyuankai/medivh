@@ -12,9 +12,9 @@ h2, .h2,
 h3, .h3,
 h4, .h4,
 h5, .h5,
-h6, .h6 {
+h6, .h6, p {
   margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Microsoft YaHei, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   color: #333;
 }
@@ -75,6 +75,7 @@ p {
 
 .blog-post {
   margin-bottom: 20px;
+  line-height: 1.8;
 }
 
 .blog-post-title {

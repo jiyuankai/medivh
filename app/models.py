@@ -62,9 +62,9 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def create_administrator():
-        u = User(email = 'admin@admin.com',
-                 username = 'Admin',
-                 password = 'admin',
+        u = User(email = '123@123.com',
+                 username = '123',
+                 password = '123',
                  admin = True)
         db.session.add(u)
         db.session.commit()
