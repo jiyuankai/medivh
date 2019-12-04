@@ -1,0 +1,36 @@
+version: '2.1'
+services:
+  backend:
+    image: medivh
+    depends_on:
+      mysql:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: build/dev/backend/Dockerfile
+    environment:
+      - MEDIVH_CONFIG_MODULE=medivh.config.dev
+    volumes:
+      - .:/app
+    command: gowatch
+    ports:
+      - "8080:8080"
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_HOST=localhost
+      - MYSQL_PORT=3306
+    ports:
+      - "33060:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:4.0
+    ports:
+      - "63790:6379"
